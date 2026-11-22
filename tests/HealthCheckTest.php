@@ -13,7 +13,8 @@ class HealthCheckTest extends TestCase
         $data = json_decode($output, true);
 
         $this->assertIsArray($data, 'O retorno do endpoint /health deve ser um JSON válido');
-        $this->assertSame('UP', $data['status']);
+        // Simulação proposital de falha para demonstrar o Quality Gate bloqueando a esteira:
+        $this->assertSame('DOWN', $data['status'], 'Falha intencional: simulando quebra de teste para validar bloqueio do Quality Gate');
         $this->assertSame('Sistema HBL - PNLD', $data['service']);
         $this->assertArrayHasKey('timestamp', $data);
         $this->assertArrayHasKey('php_version', $data);
